@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Activity Slip</title>
+
+    <style>
+        body {
+            background-color: black;
+            min-width: 8.5in;
+            min-height: 11in;
+            height: 100%;
+            width: 100%;
+            padding: 0%;
+            margin: 0%;
+            box-sizing: border-box;
+            padding-top: 20px;
+            font-size: 18px;
+        }
+
+        .letter {
+            min-width: 8.5in;
+            min-height: 11in;
+            max-width: 8.5in;
+            max-height: 11in;
+            background-color: #fefefe;
+            padding: 0.75in;
+            margin-bottom: 10px;
+            margin-left: auto;
+            margin-right: auto;
+            overflow: hidden;
+            page-break-inside: avoid;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        #slip {
+            height: 100%;
+            min-height: 4.5in;
+        }
+
+        .row {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 5px;
+        }
+
+        .row span {
+            display: flex;
+            margin: 5px;
+            width: 100%;
+        }
+
+        .labelInput {
+            border: none;
+            padding: 5px;
+            border-bottom: #000 2px solid;
+            width: 100%;
+            min-width: 60px;
+            background-color: transparent;
+        }
+
+        .row label {
+            min-width: max-content;
+            font-weight: bold;
+        }
+
+        .letter textarea {
+            outline: 0px;
+            border: none;
+            width: 100%;
+            line-height: 30px;
+            color: black;
+            resize: none;
+            background: transparent;
+            z-index: 2;
+            font-size: 18px;
+            font-family: 'Google Sans', 'Helvetica Neue', 'sans-serif';
+        }
+
+        #parts {
+            width: 100%;
+        }
+
+        .buttons {
+            position: fixed;
+            top: 20px;
+            height: auto;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
+            justify-content: space-evenly;
+        }
+
+        .btn {
+            width: 120px;
+            height: 30px;
+            background-image: linear-gradient(to bottom, #0099ee 0%, #007bff 100%);
+            border-radius: 5px;
+            color: #fff;
+            margin: 10px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: #347e91 3px 3px 10px;
+        }
+
+        .btn:hover {
+            background-image: linear-gradient(to bottom, #004085 0%, #0099ee 100%);
+            border: #666666 solid 1px;
+            box-shadow: #424242 4px 4px 7px;
+        }
+
+        #removeSlip {
+            margin-left: auto;
+            margin-right: 0%;
+            background-image: linear-gradient(to top, orange 0%, red 50%, orange 100%);
+            color: white;
+            display: flex;
+            box-shadow: #666666 4px 4px 7px;
+        }
+
+        #removeSlip:hover {
+            box-shadow: #fa0101 3px 3px 12px;
+        }
+
+        @media print {
+            .noPrint {
+                display: none !important;
+                visibility: hidden;
+            }
+
+            .letter {
+                margin: 0%;
+                padding: 0.5in;
+                overflow: hidden;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="letter">
+        <div id="slip">
+            <button type="button" class="noPrint" onclick="deleteSlip(this)" id="removeSlip">X</button>
+            <div class="row">
+                <span>
+                    <label for="name">Name:</label>
+                    <input type="text" name="name" id="name" class="labelInput">
+                </span>
+                <span>
+                    <label for="location">Location:</label>
+                    <input type="text" name="location" id="location" class="labelInput">
+                </span>
+            </div>
+
+            <div class="row">
+                <span>
+                    <label for="date">Date:</label>
+                    <input type="date" name="date" id="date" class="labelInput">
+                </span>
+                <span>
+                    <label for="Vehicle">Vehicle:</label>
+                    <input type="text" name="Vehicle" id="Vehicle" class="labelInput">
+                </span>
+                <span>
+                    <label for="wo">Work Order #:</label>
+                    <input type="number" name="wo" id="wo" class="labelInput">
+                </span>
+            </div>
+
+            <div class="row">
+                <span>
+                    <label for="aTime">Arrival Time:</label>
+                    <input type="text" name="aTime" id="aTime" class="labelInput" placeholder="HH:MM">
+                </span>
+                <span>
+                    <label for="dTime">Departure Time:</label>
+                    <input type="text" name="dTime" id="dTime" class="labelInput" placeholder="HH:MM">
+                </span>
+                <span>
+                    <label for="weather"> Weather:</label>
+                    <input type="text" name="weather" id="weather" class="labelInput">
+                </span>
+                <span>
+                    <label for="temp">Temperature#:</label>
+                    <input type="number" name="temp" id="temp" class="labelInput" min="60">F
+                </span>
+            </div>
+            <div class="row">
+                <span>
+                    <label for="com">Complain:</label>
+                    <input type="text" id="com" class="labelInput">
+                </span>
+            </div>
+            <div class="row">
+                <span>
+                    <label for="insp">Inspection Result:</label>
+                    <input type="text" id="insp" class="labelInput">
+                </span>
+            </div>
+
+            <div class="row">
+                <span>
+                    <label for="parts">Parts Used:</label>
+                    <input type="text" name="parts" id="parts" class="labelInput">
+                </span>
+                <span style="width: auto;">
+                    <label for="task">Task Completed:</label>
+                    <select name="task" id="task" class="labelInput">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </span>
+            </div>
+            <div class="row">
+                <span style="position: relative;">
+                    <textarea rows="7">Action Taken: </textarea>
+                    <svg width="100%" height="215" xmlns="http://www.w3.org/2000/svg"
+                        style="position: absolute; top:0%;">
+                        <line y1="32" x1="0" y2="32" x2="100%" stroke="black" stroke-width="1" />
+                        <line y1="62" x1="0" y2="62" x2="100%" stroke="black" stroke-width="1" />
+                        <line y1="92" x1="0" y2="92" x2="100%" stroke="black" stroke-width="1" />
+                        <line y1="122" x1="0" y2="122" x2="100%" stroke="black" stroke-width="1" />
+                        <line y1="152" x1="0" y2="152" x2="100%" stroke="black" stroke-width="1" />
+                        <line y1="182" x1="0" y2="182" x2="100%" stroke="black" stroke-width="1" />
+                        <line y1="212" x1="0" y2="212" x2="100%" stroke="black" stroke-width="1" />
+                    </svg>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="noPrint buttons">
+        <button type="button" id="addSlip" class="btn">Add Slip</button>
+        <button onclick="window.print()" class="btn">Print Page</button>
+    </div>
+
+    <script>
+        const slip = document.getElementById('slip');
+
+        document.getElementById('addSlip').addEventListener('click', function () {
+           arrangeSlips(slip.cloneNode(true));
+        });
+
+        function arrangeSlips(newSlip) {
+            let newPage = "";
+            let slipsList = document.querySelectorAll('#slip');
+            newSlip ? slipsList = [...slipsList, newSlip]:slipsList
+
+            document.querySelectorAll('.letter').forEach(tag => tag.remove());
+
+            slipsList.forEach((slip, i) => {
+                console.log(i)
+                if (i%2 == 0) {
+                    newPage = document.createElement('div');
+                    newPage.classList.add('letter');
+                    newPage.append(slip);
+                    if(i === slipsList.length -1 ){
+                        document.body.append(newPage)
+                    }
+                    return 
+                }
+                newPage.append(slip);
+                document.body.append(newPage);
+            })
+        }
+
+        function deleteSlip(e) {
+            e.parentElement.remove();
+            arrangeSlips();
+        }
+    </script>
+</body>
+
+</html>
